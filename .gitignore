@@ -1,2 +1,10 @@
 *sandbox*
-*env*
+venv/
+.idea/
+*.pyc
+__pycache__/
+build/
+dist/
+*egg-info/
+.DS_Store
+deploy.sh
