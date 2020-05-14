@@ -1,5 +1,0 @@
-schema_prefix: delighted_test
-endpoints:
-  survey_responses:
-    table: 'responses'
-    date_fields: '("created_at", "updated_at")'

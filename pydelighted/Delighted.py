@@ -6,12 +6,12 @@ from pydelighted.useful import process_data, flatten, get_column_names, send_tem
 
 
 class Delighted:
-    def __init__(self, dbstream, var_env_key, config_file_path='config.yaml', version='v1'):
+    def __init__(self, dbstream, var_env_key, config_file_path, version='v1'):
         self.dbstream = dbstream
         self.var_env_key = var_env_key
         self.url = "https://api.delighted.com/%s/" % version
         self.config_file_path = config_file_path
-        self.api_key = os.environ["DELIGHTED_API_KEY"]
+        self.api_key = os.environ["DELIGHTED_%s_API_KEY" %var_env_key]
         self.endpoints = yaml.load(open(self.config_file_path), Loader=yaml.FullLoader).get('endpoints')
         self.schema_prefix = yaml.load(open(self.config_file_path), Loader=yaml.FullLoader).get("schema_prefix")
 
@@ -47,7 +47,6 @@ class Delighted:
         _clean(self.dbstream, self.schema_prefix, table)
         while raw_data:
             params["page"] = params["page"] + 1
-            print(params["page"])
             raw_data = self.get_endpoint_data(endpoint_key, params).json()
             data = process_data(raw_data, date_fields)
             send_temp_data(self.dbstream, data, self.schema_prefix, table, columns)
