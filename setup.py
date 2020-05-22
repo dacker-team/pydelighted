@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydelighted",
-    version="0.0.1",
+    version="0.0.2",
     author="Dacker",
     author_email="hello@dacker.co",
     description="A Delighted connector",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dacker-team/delighted",
+    url="https://github.com/dacker-team/pydelighted",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
