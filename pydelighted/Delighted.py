@@ -2,7 +2,7 @@ import os
 import requests
 import yaml
 
-from pydelighted.useful import process_data, flatten, get_column_names, send_temp_data, _clean
+from pydelighted.useful import process_data, get_column_names
 
 
 class Delighted:
@@ -36,6 +36,7 @@ class Delighted:
                   "updated_since": since,
                   "updated_until": until,
                   }
+        dbstream=self.dbstream
         endpoint = self.endpoints.get(endpoint_key)
         date_fields = self.get_date_field(endpoint)
         table = self.get_table(endpoint_key)
@@ -43,11 +44,10 @@ class Delighted:
         raw_data = self.get_endpoint_data(endpoint_key, params).json()
         data = process_data(raw_data, date_fields)
         columns = get_column_names(data)
-        send_temp_data(self.dbstream, data, self.schema_prefix, table, columns)
-        _clean(self.dbstream, self.schema_prefix, table)
+        dbstream.send_with_temp_table( data, columns, 'id', self.schema_prefix, table)
         while raw_data:
             params["page"] = params["page"] + 1
             raw_data = self.get_endpoint_data(endpoint_key, params).json()
             data = process_data(raw_data, date_fields)
-            send_temp_data(self.dbstream, data, self.schema_prefix, table, columns)
-            _clean(self.dbstream, self.schema_prefix, table)
+            columns = get_column_names(data)
+            dbstream.send_with_temp_table(data, columns, 'id', self.schema_prefix, table)
