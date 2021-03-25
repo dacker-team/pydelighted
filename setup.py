@@ -22,6 +22,6 @@ setuptools.setup(
     install_requires=[
         "dbstream>=0.0.16",
         "requests==2.23.0",
-        "PyYAML==5.3.1"
+        "PyYAML==5.4"
     ],
 )
