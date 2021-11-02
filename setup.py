@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydelighted",
-    version="0.0.5",
+    version="0.0.6",
     author="Dacker",
     author_email="hello@dacker.co",
     description="A Delighted connector",
@@ -21,7 +21,7 @@ setuptools.setup(
     python_requires='>=3',
     install_requires=[
         "dbstream>=0.0.16",
-        "requests==2.23.0",
-        "PyYAML==5.3.1"
+        "requests>=2.23.0",
+        "PyYAML>=5.3.1"
     ],
 )
